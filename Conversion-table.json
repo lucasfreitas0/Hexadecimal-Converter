@@ -1,7 +1,7 @@
 
 [{
     "_comentario": "Tabela de conversao ASCII para Hex",
-    "0": {"simbolo": "space", "hex": "20", "oct": "40", "bin":"100000"},
+    "0": {"simbolo": " ", "hex": "20", "oct": "40", "bin":"100000"},
     "1": {"simbolo": "!", "hex":"21", "oct": "41", "bin":"100001"},
     "2": {"simbolo": "\"", "hex":"22", "oct": "42", "bin":"100010"},
     "3": {"simbolo": "#", "hex":"23", "oct": "43", "bin":"100011"},
