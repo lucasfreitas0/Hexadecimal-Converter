@@ -15,7 +15,7 @@ def mostrarMenu():
 
 caminho_arquivo = 'Conversion-table.json'
 tabela_conversao = {}
-opcoesBases = [1, 2, 3, 4]
+opcoes_bases = [1, 2, 3, 4]
 
 
 print("Bem-vindo ao conversor de bases!\n")
@@ -28,7 +28,7 @@ while True:
     try:
 
         base_origem = int(input("Digite o número correspondente à base de origem: "))
-        if base_origem not in opcoesBases:
+        if base_origem not in opcoes_bases:
             print("Base de origem inválida. Tente novamente.")
             continue
 
@@ -36,13 +36,13 @@ while True:
         mostrarMenu()
 
         base_destino = int(input("Digite o número correspondente à base de destino: "))
-        if base_destino not in opcoesBases:
+        if base_destino not in opcoes_bases:
             print("Base de destino inválida. Tente novamente.")
             continue
 
         limparTela()
         numero = int(input("Digite o número a ser convertido: "))
-        if base_origem in opcoesBases:
+        if base_origem in opcoes_bases:
             numero_decimal = numero, [2, 8, 10, 16][base_origem - 1]
         else:
             print("Base de origem inválida.")
@@ -62,13 +62,13 @@ while True:
     
     match(base_destino):
         case 1:
-            numero_convertido = bin(numero_decimal)[2:]
+            numero_convertido = bin(numero_decimal)
         case 2:
-            numero_convertido = oct(numero_decimal)[2:]
+            numero_convertido = oct(numero_decimal)
         case 3:
             numero_convertido = str(numero_decimal)
         case 4:
-            numero_convertido = hex(numero_decimal)[2:].upper()
+            numero_convertido = hex(numero_decimal).upper()
         case _:
             print("Base de destino inválida")
             continue 
