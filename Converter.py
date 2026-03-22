@@ -3,58 +3,30 @@ import json
 caminho_arquivo = 'Conversion-table.json'
 tabela_conversao = {}
 
-try:
-    with open(caminho_arquivo, 'r', encoding='utf-8') as f:
-        conteudo = json.load(f)
-        
-        if isinstance(conteudo, list) and len(conteudo) > 0:
-            tabela_conversao = conteudo[0]
-        else:
-            tabela_conversao = conteudo
-            
-        print("Sucesso! O arquivo foi carregado.")
-
-except FileNotFoundError:
-    print(f"Erro: O arquivo '{caminho_arquivo}' não foi encontrado.")
-except json.JSONDecodeError:
-    print(f"Erro: O JSON está corrompido.")
-
 # inicio do codigo
 print("Bem-vindo ao conversor de bases!")
-
+#loop para o menu de conversão
 while True:
     print("Escolha a base de origem:")
     print("1. Binário\n2. Octal\n3. Decimal\n4. Hexadecimal")
     base_origem = int(input("Digite o número correspondente à base de origem: "))
+    if base_origem not in [1, 2, 3, 4]:
+        print("Base de origem inválida. Tente novamente.")
+        break
     print("Escolha a base de destino:")
     print("1. Binário\n2. Octal\n3. Decimal\n4. Hexadecimal")
     base_destino = int(input("Digite o número correspondente à base de destino: "))
+    if base_destino not in [1, 2, 3, 4]:
+        print("Base de destino inválida. Tente novamente.")
+        break
     numero = input("Digite o número a ser convertido: ")
-
-    if base_origem == 1:
+#checagem se o numero escolhido está na base de origem correta
+    if base_origem in [1, 2, 3, 4]:
         try:
-            numero_decimal = int(numero, 2)
+            numero_decimal = int(numero, [2, 8, 10, 16][base_origem - 1])
         except ValueError:
             print("Número inválido para a base de origem.")
-            continue
-    elif base_origem == 2:
-        try:
-            numero_decimal = int(numero, 8)
-        except ValueError:
-            print("Número inválido para a base de origem.")
-            continue
-    elif base_origem == 3:
-        try:
-            numero_decimal = int(numero)
-        except ValueError:
-            print("Número inválido para a base de origem.")
-            continue
-    elif base_origem == 4:
-        try:
-            numero_decimal = int(numero, 16)
-        except ValueError:
-            print("Número inválido para a base de origem.")
-            continue
+            break
     else:
         print("Base de origem inválida.")
     if base_destino == 1:
@@ -67,7 +39,8 @@ while True:
         numero_convertido = hex(numero_decimal)[2:].upper()
     else:
         print("Base de destino inválida.")
-    print(f"O número {numero} na base de origem é {numero_convertido} na base de destino.")
+    print(f"O número {numero} na base de origem é {numero_convertido} na base de {base_destino}.")
+    
     continuar = input("Deseja realizar outra conversão? (s/n): ")
     if continuar.lower() != 's':
         break
