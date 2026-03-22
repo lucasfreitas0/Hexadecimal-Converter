@@ -1,8 +1,8 @@
 import json
-import os
+from os import system
 
 def limparTela():
-    os.system('cls')
+    system('cls')
 
 def mostrarMenu(): 
     print("Escolha a base de origem:")
@@ -43,7 +43,7 @@ while True:
         limparTela()
         numero = int(input("Digite o número a ser convertido: "))
         if base_origem in opcoes_bases:
-            numero_decimal = numero, [2, 8, 10, 16][base_origem - 1]
+            numero_decimal = numero, [2, 8, 10, 16][base_origem - 1] # O número decimal ta recebendo mais de um valor. Aqui tem que passar um valor só.
         else:
             print("Base de origem inválida.")
             
@@ -76,6 +76,7 @@ while True:
     print(f"O número {numero} na base de origem é {numero_convertido} na base de {base_destino}.")
 
     continuarConvertendo = input("Deseja realizar outra conversão? (s/n): ").lower()
+    limparTela()
     validacaoTrue = continuarConvertendo == 'n' or continuarConvertendo == 'nao'
     if validacaoTrue:
         break
