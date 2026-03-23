@@ -4,10 +4,10 @@ import sysconfig
 
 def limparTela():
     platform_id = sysconfig.get_platform();
-    system('cls') if platform_id == 'win' else system('clear')
+    system('cls') if platform_id == 'win' else system('clear') #verifica o SO para limpar a tela
 
 def mostrarMenu(): 
-    print("Escolha a base de origem:") 
+    print("Escolha a base:") 
     print("1. Binário")
     print("2. Octal")
     print("3. Decimal")
@@ -35,27 +35,39 @@ while True:
         mostrarMenu()
         base_destino = int(input("Digite o número correspondente à base de destino: "))
         
-        if base_origem  not in opcoes_menu or base_destino not in opcoes_menu:
+        if base_origem  not in opcoes_menu or base_destino not in opcoes_menu: # vou ver pra n deixar 2 not in e 2 or
             print("Base de origem ou base de destino inválida, Tente novamente.")
             continue
 
         limparTela()
         numero = input("Digite o número a ser convertido: ")
         if base_origem in opcoes_menu:
-            numero_decimal = int(numero, bases_para_conversao[base_origem - 1]) # O número decimal ta recebendo mais de um valor. Aqui tem que passar um valor só.
+            numero_decimal = int(numero, bases_para_conversao[base_origem - 1])
         else:
-            print("Base de origem inválida.")
+            print("Base de origem inválida.") # esse else mesmo apagado não cai no case_ da base_origem
             
     except ValueError:
         limparTela()
-        print("Número inválido para a base de origem.\n")
+        print("Número inválido para a base de origem.\n") # tirar esse except e por no case da base_origem se possivel (n sei se da)
         continue
     except Exception:
         limparTela()
         print('Erro desconhecido.\n')
         continue
     
-    #match para base origem
+    match(base_origem):
+        case 1:
+            numero_decimal = int(numero, 2)
+        case 2:
+            numero_decimal = int(numero, 8)
+        case 3:
+            numero_decimal = int(numero, 10)
+        case 4:
+            numero_decimal = int(numero, 16)
+        case _:
+            print("Base de origem inválida")
+            continue
+
     match(base_destino):
         case 1:                              
             numero_convertido = bin(numero_decimal) # ok
