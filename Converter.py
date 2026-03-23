@@ -1,11 +1,11 @@
-import json
-from os import system
 import sysconfig
+from os import system
+
 
 def limparTela():
-    platform_id = sysconfig.get_platform();
-    system('cls') if platform_id == 'win' else system('clear') #verifica o SO para limpar a tela
-
+    platform_id = sysconfig.get_platform()
+    system('cls') if platform_id == 'win-amd64' else system('clear')
+    
 def mostrarMenu(): 
     print("Escolha a base:") 
     print("1. Binário")
@@ -14,9 +14,6 @@ def mostrarMenu():
     print("4. Hexadecimal")
 
 
-
-caminho_arquivo = 'Conversion-table.json'
-tabela_conversao = {}
 opcoes_menu = [1, 2, 3, 4]
 bases_para_conversao = [2, 8, 10, 16]
 
