@@ -2,11 +2,11 @@ import sysconfig
 from os import system
 
 
-def limparTela():
+def limpar_tela():
     platform_id = sysconfig.get_platform()
     system('cls') if platform_id == 'win-amd64' else system('clear')
     
-def mostrarMenu(): 
+def mostrar_menu(): 
     print("Escolha a base:") 
     print("1. Binário")
     print("2. Octal")
@@ -26,47 +26,41 @@ while True:
 
     try:
 
-        mostrarMenu()
+        mostrar_menu()
         base_origem = int(input("Digite o número correspondente à base de origem: "))
 
-        limparTela()
-        mostrarMenu()
+        limpar_tela()
+        mostrar_menu()
         base_destino = int(input("Digite o número correspondente à base de destino: "))
         
         if base_origem or base_destino not in opcoes_menu:
-            limparTela()
+            limpar_tela()
             print("Base de origem ou base de destino inválida, Tente novamente.")
             continue
 
-        limparTela()
-        numero = input("Digite o número a ser convertido: ")
-        if base_origem in opcoes_menu:
-            numero_decimal = int(numero, bases_para_conversao[base_origem - 1])
-        else:
-            print("Base de origem inválida.") # esse else mesmo apagado não cai no case_ da base_origem
-            
+        limpar_tela()
+        numero_digitado = input("Digite o número a ser convertido: ")
+        numero_decimal = int(numero_digitado, bases_para_conversao[base_origem - 1])
+         
     except ValueError:
-        limparTela()
+        limpar_tela()
         print("Número inválido para a base de origem.\n") # tirar esse except e por no case da base_origem se possivel (n sei se da)
         continue
     except Exception:
-        limparTela()
+        limpar_tela()
         print('Erro desconhecido.\n')
         continue
     
     match(base_origem):
         case 1:
-            numero_decimal = int(numero, 2)
+            numero_decimal = int(numero_digitado, 2)
         case 2:
-            numero_decimal = int(numero, 8)
+            numero_decimal = int(numero_digitado, 8)
         case 3:
-            numero_decimal = int(numero, 10)
+            numero_decimal = int(numero_digitado, 10)
         case 4:
-            numero_decimal = int(numero, 16)
-        case _:
-            print("Base de origem inválida")
-            continue
-
+            numero_decimal = int(numero_digitado, 16)
+        
     match(base_destino):
         case 1:                              
             numero_convertido = bin(numero_decimal) # ok
@@ -76,18 +70,16 @@ while True:
             numero_convertido = numero_decimal # ok
         case 4:
             numero_convertido = hex(numero_decimal).upper() # ok
-        case _:
-            print("Base de destino inválida")
-            continue 
+
 
     if isinstance(numero_convertido, str):
-        print(f"O número {numero} na base de destino é {numero_convertido[2:]}.")
+        print(f"O número {numero_digitado} na base de destino é {numero_convertido[2:]}.")
     else:
-        print(f"O número {numero} na base de destino é {numero_convertido}.")
+        print(f"O número {numero_digitado} na base de destino é {numero_convertido}.")
 
 
-    continuarConvertendo = input("Deseja realizar outra conversão? (s/n): ").lower()
-    limparTela()
-    validacaoTrue = continuarConvertendo == 'n' or continuarConvertendo == 'nao'
-    if validacaoTrue:
+    continuar_convertendo = input("Deseja realizar outra conversão? (s/n): ").lower()
+    limpar_tela()
+    validacao_true = continuar_convertendo == 'n' or continuar_convertendo == 'nao'
+    if validacao_true:
         break
