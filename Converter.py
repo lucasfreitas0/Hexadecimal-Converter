@@ -22,17 +22,19 @@ print("Bem-vindo ao conversor de bases!\n")
 
 while True:
     
-    mostrarMenu()
+    
 
     try:
 
-
+        mostrarMenu()
         base_origem = int(input("Digite o número correspondente à base de origem: "))
+
         limparTela()
         mostrarMenu()
         base_destino = int(input("Digite o número correspondente à base de destino: "))
         
-        if base_origem  not in opcoes_menu or base_destino not in opcoes_menu: # vou ver pra n deixar 2 not in e 2 or
+        if base_origem or base_destino not in opcoes_menu:
+            limparTela()
             print("Base de origem ou base de destino inválida, Tente novamente.")
             continue
 
@@ -77,6 +79,7 @@ while True:
         case _:
             print("Base de destino inválida")
             continue 
+
     if isinstance(numero_convertido, str):
         print(f"O número {numero} na base de destino é {numero_convertido[2:]}.")
     else:
