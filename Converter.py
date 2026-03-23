@@ -40,11 +40,12 @@ while True:
 
         limpar_tela()
         numero_digitado = input("Digite o número a ser convertido: ")
-        numero_decimal = int(numero_digitado, bases_para_conversao[base_origem - 1])
+        numero_decimal_base_origem = int(numero_digitado, bases_para_conversao[base_origem - 1])
+        numero_decimal_base_destino = int(numero_digitado, bases_para_conversao[base_destino - 1])
          
     except ValueError:
         limpar_tela()
-        print("Número inválido para a base de origem.\n") # tirar esse except e por no case da base_origem se possivel (n sei se da)
+        print("Número inválido para a base de origem.\n")
         continue
     except Exception:
         limpar_tela()
@@ -53,29 +54,29 @@ while True:
     
     match(base_origem):
         case 1:
-            numero_decimal = int(numero_digitado, 2)
+            numero_convertido_base_origem = bin(numero_decimal_base_origem)
         case 2:
-            numero_decimal = int(numero_digitado, 8)
+            numero_convertido_base_origem = oct(numero_decimal_base_origem)
         case 3:
-            numero_decimal = int(numero_digitado, 10)
+            numero_convertido_base_origem = numero_decimal_base_origem
         case 4:
-            numero_decimal = int(numero_digitado, 16)
+            numero_convertido_base_origem = hex(numero_decimal_base_origem)
         
     match(base_destino):
         case 1:                              
-            numero_convertido = bin(numero_decimal) # ok
+            numero_convertido_base_destino = bin(numero_decimal_base_destino)
         case 2:
-            numero_convertido = oct(numero_decimal) # ok
+            numero_convertido_base_destino = oct(numero_decimal_base_destino)
         case 3:
-            numero_convertido = numero_decimal # ok
+            numero_convertido_base_destino = numero_decimal_base_destino
         case 4:
-            numero_convertido = hex(numero_decimal).upper() # ok
+            numero_convertido_base_destino = hex(numero_decimal_base_destino).upper()
 
-
-    if isinstance(numero_convertido, str):
-        print(f"O número {numero_digitado} na base de destino é {numero_convertido[2:]}.")
+    
+    if isinstance(numero_convertido_base_destino, str):
+        print(f"O número {numero_digitado} na base de destino é {numero_convertido_base_destino[2:]}.")
     else:
-        print(f"O número {numero_digitado} na base de destino é {numero_convertido}.")
+        print(f"O número {numero_digitado} na base de destino é {numero_convertido_base_destino}.")
 
 
     continuar_convertendo = input("Deseja realizar outra conversão? (s/n): ").lower()
