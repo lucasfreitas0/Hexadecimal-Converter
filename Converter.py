@@ -1,8 +1,10 @@
 import json
 from os import system
+import sysconfig
 
 def limparTela():
-    system('cls')
+    platform_id = sysconfig.get_platform();
+    system('cls') if platform_id == 'win' else system('clear')
 
 def mostrarMenu(): 
     print("Escolha a base de origem:") 
