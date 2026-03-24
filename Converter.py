@@ -1,12 +1,9 @@
-import json
-from os import system
-import sysconfig
+import os
 
-def limparTela():
-    platform_id = sysconfig.get_platform();
-    system('cls') if platform_id == 'win' else system('clear') #verifica o SO para limpar a tela
-
-def mostrarMenu(): 
+def limpar_tela():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    
+def mostrar_menu(): 
     print("Escolha a base:") 
     print("1. Binário")
     print("2. Octal")
@@ -14,9 +11,6 @@ def mostrarMenu():
     print("4. Hexadecimal")
 
 
-
-caminho_arquivo = 'Conversion-table.json'
-tabela_conversao = {}
 opcoes_menu = [1, 2, 3, 4]
 bases_para_conversao = [2, 8, 10, 16]
 
@@ -25,69 +19,60 @@ print("Bem-vindo ao conversor de bases!\n")
 
 while True:
     
-    mostrarMenu()
+    
 
     try:
 
-
+        mostrar_menu()
         base_origem = int(input("Digite o número correspondente à base de origem: "))
-        limparTela()
-        mostrarMenu()
+
+        limpar_tela()
+        mostrar_menu()
         base_destino = int(input("Digite o número correspondente à base de destino: "))
         
-        if base_origem  not in opcoes_menu or base_destino not in opcoes_menu: # vou ver pra n deixar 2 not in e 2 or
+        if base_origem not in opcoes_menu or base_destino not in opcoes_menu:
+            limpar_tela()
             print("Base de origem ou base de destino inválida, Tente novamente.")
             continue
 
-        limparTela()
-        numero = input("Digite o número a ser convertido: ")
-        if base_origem in opcoes_menu:
-            numero_decimal = int(numero, bases_para_conversao[base_origem - 1])
-        else:
-            print("Base de origem inválida.") # esse else mesmo apagado não cai no case_ da base_origem
-            
+        if base_origem == base_destino:
+            print("A base de destino deve ser diferente da base de origem, Tente novamente.")
+            continue
+
+        limpar_tela()
+        numero_digitado = input("Digite o número a ser convertido: ")
+        numero_decimal_base_destino = int(numero_digitado, bases_para_conversao[base_origem - 1])
+        
     except ValueError:
-        limparTela()
-        print("Número inválido para a base de origem.\n") # tirar esse except e por no case da base_origem se possivel (n sei se da)
+        limpar_tela()
+        print("Número inválido para a base de origem.\n")
         continue
     except Exception:
-        limparTela()
+        limpar_tela()
         print('Erro desconhecido.\n')
         continue
     
-    match(base_origem):
-        case 1:
-            numero_decimal = int(numero, 2)
-        case 2:
-            numero_decimal = int(numero, 8)
-        case 3:
-            numero_decimal = int(numero, 10)
-        case 4:
-            numero_decimal = int(numero, 16)
-        case _:
-            print("Base de origem inválida")
-            continue
-
+        
     match(base_destino):
         case 1:                              
-            numero_convertido = bin(numero_decimal) # ok
+            numero_convertido_base_destino = bin(numero_decimal_base_destino)
         case 2:
-            numero_convertido = oct(numero_decimal) # ok
+            numero_convertido_base_destino = oct(numero_decimal_base_destino)
         case 3:
-            numero_convertido = numero_decimal # ok
+            numero_convertido_base_destino = numero_decimal_base_destino
         case 4:
-            numero_convertido = hex(numero_decimal).upper() # ok
-        case _:
-            print("Base de destino inválida")
-            continue 
-    if isinstance(numero_convertido, str):
-        print(f"O número {numero} na base de destino é {numero_convertido[2:]}.")
+            numero_convertido_base_destino = hex(numero_decimal_base_destino).upper()
+
+    
+
+    if isinstance(numero_convertido_base_destino, str):
+        print(f"O número digitado na base de origem é: {numero_digitado} na base de destino é: {numero_convertido_base_destino[2:]}.")
     else:
-        print(f"O número {numero} na base de destino é {numero_convertido}.")
+        print(f"O número digitado na base de origem é: {numero_digitado} na base de destino é: {numero_convertido_base_destino}.")
 
 
-    continuarConvertendo = input("Deseja realizar outra conversão? (s/n): ").lower()
-    limparTela()
-    validacaoTrue = continuarConvertendo == 'n' or continuarConvertendo == 'nao'
-    if validacaoTrue:
+    continuar_convertendo = input("Deseja realizar outra conversão? (s/n): ").lower()
+    limpar_tela()
+    validacao_true = continuar_convertendo == 'n' or continuar_convertendo == 'nao'
+    if validacao_true:
         break
