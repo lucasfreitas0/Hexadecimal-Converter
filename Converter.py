@@ -33,16 +33,15 @@ while True:
         mostrar_menu()
         base_destino = int(input("Digite o número correspondente à base de destino: "))
         
-        if base_origem or base_destino not in opcoes_menu:
+        if base_origem not in opcoes_menu or base_destino not in opcoes_menu:
             limpar_tela()
             print("Base de origem ou base de destino inválida, Tente novamente.")
             continue
 
         limpar_tela()
         numero_digitado = input("Digite o número a ser convertido: ")
-        numero_decimal_base_origem = int(numero_digitado, bases_para_conversao[base_origem - 1])
-        numero_decimal_base_destino = int(numero_digitado, bases_para_conversao[base_destino - 1])
-         
+        numero_decimal_base_destino = int(numero_digitado, bases_para_conversao[base_origem - 1])
+        
     except ValueError:
         limpar_tela()
         print("Número inválido para a base de origem.\n")
@@ -52,15 +51,6 @@ while True:
         print('Erro desconhecido.\n')
         continue
     
-    match(base_origem):
-        case 1:
-            numero_convertido_base_origem = bin(numero_decimal_base_origem)
-        case 2:
-            numero_convertido_base_origem = oct(numero_decimal_base_origem)
-        case 3:
-            numero_convertido_base_origem = numero_decimal_base_origem
-        case 4:
-            numero_convertido_base_origem = hex(numero_decimal_base_origem)
         
     match(base_destino):
         case 1:                              
@@ -73,6 +63,7 @@ while True:
             numero_convertido_base_destino = hex(numero_decimal_base_destino).upper()
 
     
+
     if isinstance(numero_convertido_base_destino, str):
         print(f"O número {numero_digitado} na base de destino é {numero_convertido_base_destino[2:]}.")
     else:
