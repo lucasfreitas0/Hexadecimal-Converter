@@ -66,9 +66,9 @@ while True:
     
 
     if isinstance(numero_convertido_base_destino, str):
-        print(f"O número {numero_digitado} na base de destino é {numero_convertido_base_destino[2:]}.")
+        print(f"O número digitado na base de origem é: {numero_digitado} na base de destino é: {numero_convertido_base_destino[2:]}.")
     else:
-        print(f"O número {numero_digitado} na base de destino é {numero_convertido_base_destino}.")
+        print(f"O número digitado na base de origem é: {numero_digitado} na base de destino é: {numero_convertido_base_destino}.")
 
 
     continuar_convertendo = input("Deseja realizar outra conversão? (s/n): ").lower()
