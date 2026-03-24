@@ -1,10 +1,7 @@
-import sysconfig
-from os import system
-
+import os
 
 def limpar_tela():
-    platform_id = sysconfig.get_platform()
-    system('cls') if platform_id == 'win-amd64' else system('clear')
+    os.system('cls' if os.name == 'nt' else 'clear')
     
 def mostrar_menu(): 
     print("Escolha a base:") 
@@ -36,6 +33,10 @@ while True:
         if base_origem not in opcoes_menu or base_destino not in opcoes_menu:
             limpar_tela()
             print("Base de origem ou base de destino inválida, Tente novamente.")
+            continue
+
+        if base_origem == base_destino:
+            print("A base de destino deve ser diferente da base de origem, Tente novamente.")
             continue
 
         limpar_tela()
