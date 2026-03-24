@@ -40,7 +40,7 @@ while True:
             continue
 
         limpar_tela()
-        numero_digitado = input("Digite o número a ser convertido: ")
+        numero_digitado = input("Digite o número a ser convertido: ").upper()
         numero_decimal_base_destino = int(numero_digitado, bases_para_conversao[base_origem - 1])
         
     except ValueError:
