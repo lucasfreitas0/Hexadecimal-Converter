@@ -1,7 +1,2 @@
-Conversor de bases:<br>
-Binária<br>
-Octal<br>
-Decimal<br>
-Hexadecimal<br>
-<br>
-Em breve, converterá frases em decimal para as outras bases.
+Conversor de bases Binário, Octal, Decimal e Hexadecimal<br>
+Também converte letras e frases para as bases escolhidas e ao contrário funciona também.
