@@ -38,15 +38,19 @@ def base_para_texto(codigo, base_origem): # aqui faz o processo inverso
     return resultado
 
 
-def converter(base_origem, base_destino, valor): #função pra usar os valores
+def converter(base_origem, base_destino, valor):
 
     bases_para_conversao = [2, 8, 10, 16]
 
-    try:
+    # SE AS BASES FOREM IGUAIS
+    if base_origem == base_destino:
+        raise ValueError("A base de origem e destino são as mesmas.")
 
+    try:
+        # 1. Tenta converter como NÚMERO PURO primeiro
         decimal = int(
             valor,
-            bases_para_conversao[base_origem - 1]
+            bases_para_conversao[base_origem -1]
         )
 
         match base_destino:
@@ -59,23 +63,27 @@ def converter(base_origem, base_destino, valor): #função pra usar os valores
             case 4:
                 return hex(decimal)[2:].upper()
 
-    except ValueError: #checa se algum valor foi colocado indevidamente
-
-        if base_origem == 1:
-          raise ValueError(
-            "Binário aceita apenas 0 e 1."
-        )
-
-        elif base_origem == 2:
-            raise ValueError(
-            "Octal aceita apenas números de 0 a 7."
-        )
-
-        elif base_origem == 4:
-            raise ValueError(
-            "Hexadecimal aceita 0-9 e A-F."
-            )
-        elif base_origem == base_destino:
-            raise ValueError(
-                "São as mesmas bases"
-        )
+    except ValueError:
+        # 2. Se falhar como número, significa que pode ser TEXTO/ASCII
+        
+        # Se a origem for Decimal (3), significa que é um texto normal (Ex: "Ola")
+        # que quer ser transformado nos códigos das outras bases
+        if base_origem == 3:
+            return texto_para_base(valor, base_destino)
+            
+        # Se a origem for outra base (1, 2 ou 4), significa que é uma sequência 
+        # de códigos (Ex: "01000001 01000010") querendo voltar a ser texto
+        elif base_destino == 3:
+            try:
+                return base_para_texto(valor, base_origem)
+            except Exception:
+                raise ValueError("Formato de código inválido para conversão em texto.")
+                
+        # 3. Se não cair em nenhum dos casos de texto, aí sim valida os erros de digitação
+        else:
+            if base_origem == 1:
+                raise ValueError("Binário aceita apenas 0, 1 e espaços.")
+            elif base_origem == 2:
+                raise ValueError("Octal aceita apenas números de 0 a 7 e espaços.")
+            elif base_origem == 4:
+                raise ValueError("Hexadecimal aceita 0-9, A-F e espaços.")

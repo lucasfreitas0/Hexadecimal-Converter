@@ -80,7 +80,7 @@ base_destino.pack(pady=5)
 # Resultado
 label_resultado = tk.Label(
     janela,
-    text="Resultado aparecerá aqui"
+    text="Resultado aparecerá aqui\n"
 )
 
 label_resultado.pack(pady=20)
